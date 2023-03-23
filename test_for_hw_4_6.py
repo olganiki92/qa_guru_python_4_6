@@ -66,23 +66,21 @@ def test_readable_function():
     find_registration_button_on_login_page(page_url="https://companyname.com/login", button_text="Register")
 
 
-def name_to_readable(func, **kwargs):
-    description = func.__name__.replace('_', ' ').title()
-    values = [str(value) for value in kwargs.values()]
-    result = ', '.join(values)
-    return f'{description} [{result}]'
+def name_to_readable(name_func, *args):
+    formatted_args = ', '.join(args)
+    return f"{name_func.__name__.replace('_', ' ').title()} [{formatted_args}]"
 
 
 def open_browser(browser_name):
-    actual_result = name_to_readable(open_browser, browser_name=browser_name)
+    actual_result = name_to_readable(open_browser, browser_name)
     assert actual_result == "Open Browser [Chrome]"
 
 
 def go_to_companyname_homepage(page_url):
-    actual_result = name_to_readable(go_to_companyname_homepage, page_url=page_url)
+    actual_result = name_to_readable(go_to_companyname_homepage, page_url)
     assert actual_result == "Go To Companyname Homepage [https://companyname.com]"
 
 
 def find_registration_button_on_login_page(page_url, button_text):
-    actual_result = name_to_readable(find_registration_button_on_login_page, page_url=page_url, button_text=button_text)
+    actual_result = name_to_readable(find_registration_button_on_login_page, page_url, button_text)
     assert actual_result == "Find Registration Button On Login Page [https://companyname.com/login, Register]"
